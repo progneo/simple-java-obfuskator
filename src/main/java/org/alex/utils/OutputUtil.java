@@ -13,7 +13,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
-import static org.alex.ui.SettingsPanel.namesLengthField;
+import static org.alex.ui.ObfuscationPanel.namesLengthField;
 
 public class OutputUtil {
   private static JarOutputStream outputStream = null;
@@ -27,9 +27,6 @@ public class OutputUtil {
     List<ClassModifier> modifier = new ArrayList<>(List.of());
     namesLength = Integer.parseInt(namesLengthField.getText());
     modifier.clear();
-    if (ObfuscationPanel.NumberObfuscationCheckBox.isSelected()) {
-      modifier.add(new ModifierNumbers());
-    }
     if (ObfuscationPanel.flowObfuscationCheckBox.isSelected()) {
       modifier.add(new ModifierFlow());
     }

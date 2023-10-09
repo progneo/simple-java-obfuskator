@@ -2,7 +2,6 @@ package org.alex;
 
 import org.alex.ui.FilePanel;
 import org.alex.ui.ObfuscationPanel;
-import org.alex.ui.SettingsPanel;
 import org.alex.utils.OutputUtil;
 
 import java.awt.BorderLayout;
@@ -19,15 +18,12 @@ import javax.swing.UIManager;
 
 import static org.alex.ui.FilePanel.input;
 import static org.alex.ui.FilePanel.output;
-import static org.alex.ui.SettingsPanel.namesLengthField;
+import static org.alex.ui.ObfuscationPanel.namesLengthField;
 import static org.alex.utils.OutputUtil.modules;
 
 public class MainGUI extends JFrame {
 
   public static void main(String[] args) {
-    boolean aBoolean = false;
-    aBoolean = true;
-
     SwingUtilities.invokeLater(
         () -> {
           try {
@@ -42,7 +38,7 @@ public class MainGUI extends JFrame {
   public MainGUI() {
     setTitle("Obfuscator");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(100, 100, 881, 522);
+    setBounds(100, 100, 881, 305);
     setLocationRelativeTo(null);
     JPanel contentPane = new JPanel();
     contentPane.setBackground(Color.WHITE);
@@ -50,6 +46,7 @@ public class MainGUI extends JFrame {
     contentPane.setLayout(new BorderLayout(0, 0));
 
     JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+    tabbedPane.setSize(881, 200);
     contentPane.add(tabbedPane, BorderLayout.NORTH);
 
     FilePanel file = new FilePanel();
@@ -57,9 +54,6 @@ public class MainGUI extends JFrame {
 
     ObfuscationPanel obf = new ObfuscationPanel();
     tabbedPane.addTab("Obfuscation", obf);
-
-    SettingsPanel setSetting = new SettingsPanel();
-    tabbedPane.addTab("Settings", setSetting);
 
     JPanel buttonBar = new JPanel();
     buttonBar.setBackground(Color.WHITE);
@@ -84,11 +78,11 @@ public class MainGUI extends JFrame {
             JOptionPane.showMessageDialog(null, "ZipStream is skipped");
           }
           if (modules().isEmpty()) {
-            JOptionPane.showMessageDialog(null, " modules size < 1 ");
+            JOptionPane.showMessageDialog(null, "Select any modifiers");
             return;
           }
           if (namesLengthField.getText().isEmpty() || namesLengthField.getText() == null) {
-            namesLengthField.setText("40");
+            namesLengthField.setText("5");
           }
           OutputUtil.run(input(), output());
         });
